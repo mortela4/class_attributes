@@ -1,3 +1,8 @@
+"""
+A simple object registry (or, repository?), 
+implemented as a dictionary.
+"""
+
 component_registry = {}
 
 
@@ -90,7 +95,7 @@ if __name__ == "__main__":
         oref.print_me('jazzoo')
     #
     oref = registry_search('a3', ClassA)
-    
+
     
 
 
