@@ -1,5 +1,6 @@
 component_registry = {}
 
+
 def registry_add_component(obj: object, name: str):
     # First check - object by same name exists?
     if name in component_registry.keys():
@@ -22,6 +23,7 @@ def registry_get_component_by_name(name: str):
         print(f"No component named '{name}' in registry!")
         return None
 
+
 def registry_get_component_by_type(objtype: type):
     found_obj = None
     found_name = ''
@@ -39,6 +41,19 @@ def registry_get_component_by_type(objtype: type):
         print(f"WARN: no component with type='{objtype}' in registry!")
     #
     return found_obj
+
+
+def registry_search(name: str, objtype: type) -> object:
+    component = registry_get_component_by_name(name)
+    if component:
+        return component
+    print(f"Warning - no component by name {name} found in registry - trying type ...")
+    component = registry_get_component_by_type(objtype)
+    if component:
+        return component
+    print(f"Warning - no component by type {objtype} found in registry - giving up ...")
+    return None
+
 
 
 # ******************* TEST ***********************
@@ -73,5 +88,9 @@ if __name__ == "__main__":
     oref = registry_get_component_by_type(ClassB)  # Warn ...
     if oref:
         oref.print_me('jazzoo')
+    #
+    oref = registry_search('a3', ClassA)
+    
+    
 
 
