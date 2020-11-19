@@ -51,7 +51,12 @@ def registry_get_component_by_type(objtype: type):
 def registry_search(name: str, objtype: type) -> object:
     component = registry_get_component_by_name(name)
     if component:
-        return component
+        # Check if type corresponds to requested object's type:
+        if objtype == type(component):
+            return component
+        else:
+            print(f"ERROR: component by name '{name}' is not of object type '{objtype}'!")
+            return None
     print(f"Warning - no component by name {name} found in registry - trying type ...")
     component = registry_get_component_by_type(objtype)
     if component:
@@ -95,6 +100,12 @@ if __name__ == "__main__":
         oref.print_me('jazzoo')
     #
     oref = registry_search('a3', ClassA)
+    if oref:
+        oref.print_me('jabba ...')
+    oref = registry_search('b2', ClassA)
+    if oref:
+        oref.print_me('Hmmmm ...')         # Should NOT be taken!
+    
 
     
 
